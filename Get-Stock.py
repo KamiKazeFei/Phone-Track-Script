@@ -26,9 +26,9 @@ def send_email(subject, body):
     msg["From"] = EMAIL_ADDRESS
     msg["To"] = TO_EMAIL
     msg["Subject"] = subject
-    msg.attach(MIMEText(body, "plain"))
-
+    msg.attach(MIMEText(body, "plain"))    
     with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as server:
+        print('Login')
         server.starttls()
         server.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
         server.send_message(msg)
@@ -44,7 +44,7 @@ def check_color_stock(color_label):
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
     driver.get(URL)
     out_of_stock_count = 0
-    for i in range(0,50):        
+    for i in range(0,10):        
         time.sleep()
         # 點擊指定顏色按鈕
         btn = driver.find_element(By.XPATH, f'//button[@data-tracking-label="{color_label}"]')
@@ -59,7 +59,7 @@ def check_color_stock(color_label):
             else:   
                 out_of_stock_count += 1
                 driver.refresh()
-            time.sleep(180)
+            time.sleep(120)
         except Exception as e:  
                 print(f"[{color_label}] 抓取失敗:", e)
                 time.sleep(3)
@@ -95,4 +95,5 @@ driver.quit()
 
 # 用 ThreadPoolExecutor 開多執行緒，每個顏色獨立檢查
 with ThreadPoolExecutor(max_workers=len(color_labels)) as executor:
+    print('Start')
     executor.map(check_color_stock, color_labels)
