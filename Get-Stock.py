@@ -45,6 +45,7 @@ def check_color_stock(color_label):
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
     driver.get(URL)
     if now.minute == 0:
+        send_email('排程整點回報')
         print("排程整點回報")
     
     btn = driver.find_element(By.XPATH, f'//button[@data-tracking-label="{color_label}"]')
