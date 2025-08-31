@@ -30,4 +30,4 @@ jobs:
           ACTIONS_RUNNER_DEBUG: true
           ACTIONS_STEP_DEBUG: true
         run: |
-          run: | python -u Get-Stock.py
+          python -u Get-Stock.py
