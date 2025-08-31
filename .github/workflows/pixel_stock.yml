@@ -2,7 +2,7 @@ name: Pixel Stock Checker
 
 on:
   schedule:
-    - cron: "0 */2 * * *" 
+    - cron: "1 * * * *" 
   workflow_dispatch:
 
 jobs:
